@@ -405,6 +405,8 @@ class Event implements ArrayAccess {
    * @return array
    */
   public function normalize() {
+    $this->applyParamBuilderDefaults();
+
     $normalized_payload = array();
 
     $normalized_payload['event_name'] = $this->getEventName();
@@ -596,10 +598,11 @@ class Event implements ArrayAccess {
 
   /**
    * Sets the request context and optional preference for automatic data extraction.
-   * This triggers CAPI ParamBuilder to extract parameters like fbc, fbp,
-   * client_ip_address, and referrer_url from the context object and automatically
-   * set them on the event. The preference object controls which data are allowed
-   * to be set. If no preference is provided, all fields default to true.
+   * Stores the context and constructs a CAPI ParamBuilder; extraction of
+   * parameters (fbc, fbp, client_ip_address, ...) into UserData is deferred
+   * until normalize() runs at send time, so call order with setUserData()
+   * does not matter. The preference object controls which data are allowed
+   * to be auto-set. If no preference is provided, all fields default to true.
    * @param mixed $context The context object (e.g. HTTP request object)
    * @param Preference|null $preference Optional preference object to control auto-extraction
    * @return $this
@@ -609,7 +612,19 @@ class Event implements ArrayAccess {
     $this->preference = $preference ?? new Preference();
     $this->param_builder = new ParamBuilder();
     $this->param_builder->processRequestFromContext($context);
+    return $this;
+  }
 
+  /**
+   * Fills empty UserData fields from the ParamBuilder-extracted values, gated
+   * by Preference. No-op when setRequestContext was never called. Idempotent:
+   * only fills fields that are currently empty, so the user's explicit
+   * UserData values always take precedence regardless of call order.
+   */
+  private function applyParamBuilderDefaults() {
+    if ($this->param_builder === null) {
+      return;
+    }
     $user_data = $this->container['user_data'] ?? new UserData();
     $builder_fbc = $this->param_builder->getFbc();
     if ($this->preference->isFbcAllowed() && !$user_data->getFbc() && $builder_fbc) {
@@ -624,8 +639,6 @@ class Event implements ArrayAccess {
       $user_data->setClientIpAddress($builder_ip);
     }
     $this->container['user_data'] = $user_data;
-
-    return $this;
   }
 
   /**
