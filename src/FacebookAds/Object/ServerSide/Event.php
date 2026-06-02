@@ -609,6 +609,22 @@ class Event implements ArrayAccess {
     $this->preference = $preference ?? new Preference();
     $this->param_builder = new ParamBuilder();
     $this->param_builder->processRequestFromContext($context);
+
+    $user_data = $this->container['user_data'] ?? new UserData();
+    $builder_fbc = $this->param_builder->getFbc();
+    if ($this->preference->isFbcAllowed() && !$user_data->getFbc() && $builder_fbc) {
+      $user_data->setFbc($builder_fbc);
+    }
+    $builder_fbp = $this->param_builder->getFbp();
+    if ($this->preference->isFbpAllowed() && !$user_data->getFbp() && $builder_fbp) {
+      $user_data->setFbp($builder_fbp);
+    }
+    $builder_ip = $this->param_builder->getClientIpAddress();
+    if ($this->preference->isClientIpAddressAllowed() && !$user_data->getClientIpAddress() && $builder_ip) {
+      $user_data->setClientIpAddress($builder_ip);
+    }
+    $this->container['user_data'] = $user_data;
+
     return $this;
   }
 
