@@ -27,6 +27,8 @@ namespace FacebookAdsTest\Object;
 use FacebookAdsTest\AbstractUnitTestCase;
 use FacebookAds\Object\ServerSide\UserData;
 use FacebookAds\Object\ServerSide\Util;
+use FacebookAds\PII_DATA_TYPE;
+use FacebookAds\PIIUtils;
 use InvalidArgumentException;
 
 
@@ -59,17 +61,17 @@ class UserDataTest extends AbstractUnitTestCase {
       'doby' => '2001'
     );
     $expected = array(
-      'em' => array(Util::hash($initial_state['email'])),
-      'ph' => array(Util::hash($initial_state['phone'])),
-      'ge' => array(Util::hash($initial_state['gender'])),
-      'db' => array(Util::hash($initial_state['date_of_birth'])),
-      'ln' => array(Util::hash($initial_state['last_name'])),
-      'fn' => array(Util::hash($initial_state['first_name'])),
-      'ct' => array(Util::hash($initial_state['city'])),
-      'st' => array(Util::hash($initial_state['state'])),
-      'country' => array(Util::hash($initial_state['country_code'])),
-      'zp' => array(Util::hash($initial_state['zip_code'])),
-      'external_id' => array('external_id-10'),
+      'em' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['email'], PII_DATA_TYPE::EMAIL)),
+      'ph' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['phone'], PII_DATA_TYPE::PHONE)),
+      'ge' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['gender'], PII_DATA_TYPE::GENDER)),
+      'db' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['date_of_birth'], PII_DATA_TYPE::DATE_OF_BIRTH)),
+      'ln' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['last_name'], PII_DATA_TYPE::LAST_NAME)),
+      'fn' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['first_name'], PII_DATA_TYPE::FIRST_NAME)),
+      'ct' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['city'], PII_DATA_TYPE::CITY)),
+      'st' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['state'], PII_DATA_TYPE::STATE)),
+      'country' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['country_code'], PII_DATA_TYPE::COUNTRY)),
+      'zp' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['zip_code'], PII_DATA_TYPE::ZIP_CODE)),
+      'external_id' => array(PIIUtils::getNormalizedAndHashedPII($initial_state['external_id'], PII_DATA_TYPE::EXTERNAL_ID)),
       'client_ip_address' => 'client_ip_address-11',
       'client_user_agent' => 'client_user_agent-12',
       'fbc' => 'fbc-13',
@@ -356,17 +358,17 @@ class UserDataTest extends AbstractUnitTestCase {
       ->setExternalIds($initial_state['external_id']);
 
     $expected = array(
-      'em' => $this->hashList($initial_state['email']),
-      'ph' => $this->hashList($initial_state['phone']),
-      'ge' => $this->hashList($initial_state['gender']),
-      'db' => $this->hashList($initial_state['date_of_birth']),
-      'ln' => $this->hashList($initial_state['last_name']),
-      'fn' => $this->hashList($initial_state['first_name']),
-      'ct' => $this->hashList($initial_state['city']),
-      'st' => $this->hashList($initial_state['state']),
-      'country' => $this->hashList($initial_state['country_code']),
-      'zp' => $this->hashList($initial_state['zip_code']),
-      'external_id' => $initial_state['external_id']
+      'em' => $this->hashList($initial_state['email'], PII_DATA_TYPE::EMAIL),
+      'ph' => $this->hashList($initial_state['phone'], PII_DATA_TYPE::PHONE),
+      'ge' => $this->hashList($initial_state['gender'], PII_DATA_TYPE::GENDER),
+      'db' => $this->hashList($initial_state['date_of_birth'], PII_DATA_TYPE::DATE_OF_BIRTH),
+      'ln' => $this->hashList($initial_state['last_name'], PII_DATA_TYPE::LAST_NAME),
+      'fn' => $this->hashList($initial_state['first_name'], PII_DATA_TYPE::FIRST_NAME),
+      'ct' => $this->hashList($initial_state['city'], PII_DATA_TYPE::CITY),
+      'st' => $this->hashList($initial_state['state'], PII_DATA_TYPE::STATE),
+      'country' => $this->hashList($initial_state['country_code'], PII_DATA_TYPE::COUNTRY),
+      'zp' => $this->hashList($initial_state['zip_code'], PII_DATA_TYPE::ZIP_CODE),
+      'external_id' => $this->hashList($initial_state['external_id'], PII_DATA_TYPE::EXTERNAL_ID)
     );
 
     $this->assertEquals($expected, $userData->normalize());
@@ -379,10 +381,10 @@ class UserDataTest extends AbstractUnitTestCase {
     $this->assertEquals(array(), $normalized);
   }
 
-  private function hashList($arr){
+  private function hashList($arr, $dataType){
     return array_map(
-      function($val){
-        return Util::hash($val);
+      function($val) use ($dataType) {
+        return PIIUtils::getNormalizedAndHashedPII($val, $dataType);
       },
       $arr);
   }

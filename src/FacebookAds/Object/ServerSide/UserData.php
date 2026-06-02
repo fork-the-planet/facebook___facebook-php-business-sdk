@@ -25,6 +25,8 @@
 namespace FacebookAds\Object\ServerSide;
 
 use ArrayAccess;
+use FacebookAds\PII_DATA_TYPE;
+use FacebookAds\PIIUtils;
 use InvalidArgumentException;
 
 /**
@@ -931,17 +933,17 @@ class UserData implements ArrayAccess {
   public function normalize() {
     $normalized_payload = array();
 
-    $normalized_payload['em'] = $this->normalizeHashDedup('em', $this->getEmails());
-    $normalized_payload['ph'] = $this->normalizeHashDedup('ph', $this->getPhones());
-    $normalized_payload['ge'] = $this->normalizeHashDedup('ge', $this->getGenders());
-    $normalized_payload['db'] = $this->normalizeHashDedup('db', $this->getDatesOfBirth());
-    $normalized_payload['ln'] = $this->normalizeHashDedup('ln', $this->getLastNames());
-    $normalized_payload['fn'] = $this->normalizeHashDedup('fn', $this->getFirstNames());
-    $normalized_payload['ct'] = $this->normalizeHashDedup('ct', $this->getCities());
-    $normalized_payload['st'] = $this->normalizeHashDedup('st', $this->getStates());
-    $normalized_payload['zp'] = $this->normalizeHashDedup('zp', $this->getZipCodes());
-    $normalized_payload['country'] = $this->normalizeHashDedup('country', $this->getCountryCodes());
-    $normalized_payload['external_id'] = $this->dedup($this->getExternalIds());
+    $normalized_payload['em'] = $this->normalizeHashDedup(PII_DATA_TYPE::EMAIL, $this->getEmails());
+    $normalized_payload['ph'] = $this->normalizeHashDedup(PII_DATA_TYPE::PHONE, $this->getPhones());
+    $normalized_payload['ge'] = $this->normalizeHashDedup(PII_DATA_TYPE::GENDER, $this->getGenders());
+    $normalized_payload['db'] = $this->normalizeHashDedup(PII_DATA_TYPE::DATE_OF_BIRTH, $this->getDatesOfBirth());
+    $normalized_payload['ln'] = $this->normalizeHashDedup(PII_DATA_TYPE::LAST_NAME, $this->getLastNames());
+    $normalized_payload['fn'] = $this->normalizeHashDedup(PII_DATA_TYPE::FIRST_NAME, $this->getFirstNames());
+    $normalized_payload['ct'] = $this->normalizeHashDedup(PII_DATA_TYPE::CITY, $this->getCities());
+    $normalized_payload['st'] = $this->normalizeHashDedup(PII_DATA_TYPE::STATE, $this->getStates());
+    $normalized_payload['zp'] = $this->normalizeHashDedup(PII_DATA_TYPE::ZIP_CODE, $this->getZipCodes());
+    $normalized_payload['country'] = $this->normalizeHashDedup(PII_DATA_TYPE::COUNTRY, $this->getCountryCodes());
+    $normalized_payload['external_id'] = $this->normalizeHashDedup(PII_DATA_TYPE::EXTERNAL_ID, $this->getExternalIds());
     $normalized_payload['client_ip_address'] = $this->getClientIpAddress();
     $normalized_payload['client_user_agent'] = $this->getClientUserAgent();
     $normalized_payload['fbc'] = $this->getFbc();
@@ -980,13 +982,13 @@ class UserData implements ArrayAccess {
   /**
   * Return a normalized, hashed, and deduped array for the given array.
   */
-  private function normalizeHashDedup($fieldName, $valueList){
-    if(empty($valueList) || !isset($fieldName)) {
+  private function normalizeHashDedup($dataType, $valueList){
+    if(empty($valueList) || !isset($dataType)) {
       return null;
     }
     $deduped = array();
     foreach($valueList as $val){
-      $hashedVal = Util::hash(Normalizer::normalize($fieldName, $val));
+      $hashedVal = PIIUtils::getNormalizedAndHashedPII($val, $dataType);
       $deduped[$hashedVal] = true;
     }
     return array_keys($deduped);
