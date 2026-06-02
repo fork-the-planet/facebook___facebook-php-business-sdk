@@ -35,38 +35,43 @@ class PreferenceTest extends AbstractUnitTestCase {
     $this->assertTrue($p->isFbpAllowed());
     $this->assertTrue($p->isClientIpAddressAllowed());
     $this->assertTrue($p->isReferrerUrlAllowed());
+    $this->assertTrue($p->isEventSourceUrlAllowed());
   }
 
   public function testAllDisallowed() {
-    $p = new Preference(false, false, false, false);
+    $p = new Preference(false, false, false, false, false);
     $this->assertFalse($p->isFbcAllowed());
     $this->assertFalse($p->isFbpAllowed());
     $this->assertFalse($p->isClientIpAddressAllowed());
     $this->assertFalse($p->isReferrerUrlAllowed());
+    $this->assertFalse($p->isEventSourceUrlAllowed());
   }
 
   public function testPartialAllowlist() {
     // Only fbc and client_ip_address allowed.
-    $p = new Preference(true, false, true, false);
+    $p = new Preference(true, false, true, false, false);
     $this->assertTrue($p->isFbcAllowed());
     $this->assertFalse($p->isFbpAllowed());
     $this->assertTrue($p->isClientIpAddressAllowed());
     $this->assertFalse($p->isReferrerUrlAllowed());
+    $this->assertFalse($p->isEventSourceUrlAllowed());
   }
 
   public function testEachFlagIndependently() {
     $cases = [
-      [true,  false, false, false, 'fbc'],
-      [false, true,  false, false, 'fbp'],
-      [false, false, true,  false, 'client_ip_address'],
-      [false, false, false, true,  'referrer_url'],
+      [true,  false, false, false, false, 'fbc'],
+      [false, true,  false, false, false, 'fbp'],
+      [false, false, true,  false, false, 'client_ip_address'],
+      [false, false, false, true,  false, 'referrer_url'],
+      [false, false, false, false, true,  'event_source_url'],
     ];
     foreach ($cases as $c) {
-      $p = new Preference($c[0], $c[1], $c[2], $c[3]);
-      $this->assertEquals($c[0], $p->isFbcAllowed(),               "fbc for $c[4]");
-      $this->assertEquals($c[1], $p->isFbpAllowed(),               "fbp for $c[4]");
-      $this->assertEquals($c[2], $p->isClientIpAddressAllowed(),   "ip for $c[4]");
-      $this->assertEquals($c[3], $p->isReferrerUrlAllowed(),       "referrer for $c[4]");
+      $p = new Preference($c[0], $c[1], $c[2], $c[3], $c[4]);
+      $this->assertEquals($c[0], $p->isFbcAllowed(),               "fbc for $c[5]");
+      $this->assertEquals($c[1], $p->isFbpAllowed(),               "fbp for $c[5]");
+      $this->assertEquals($c[2], $p->isClientIpAddressAllowed(),   "ip for $c[5]");
+      $this->assertEquals($c[3], $p->isReferrerUrlAllowed(),       "referrer for $c[5]");
+      $this->assertEquals($c[4], $p->isEventSourceUrlAllowed(),    "event_source_url for $c[5]");
     }
   }
 }

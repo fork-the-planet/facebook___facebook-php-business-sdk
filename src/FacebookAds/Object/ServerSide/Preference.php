@@ -38,6 +38,7 @@ class Preference {
   private $is_fbp_allowed;
   private $is_client_ip_address_allowed;
   private $is_referrer_url_allowed;
+  private $is_event_source_url_allowed;
 
   /**
    * Constructor
@@ -45,17 +46,20 @@ class Preference {
    * @param bool $is_fbp_allowed Whether fbp is allowed (default: true)
    * @param bool $is_client_ip_address_allowed Whether client_ip_address is allowed (default: true)
    * @param bool $is_referrer_url_allowed Whether referrer_url is allowed (default: true)
+   * @param bool $is_event_source_url_allowed Whether event_source_url is allowed (default: true)
    */
   public function __construct(
     bool $is_fbc_allowed = true,
     bool $is_fbp_allowed = true,
     bool $is_client_ip_address_allowed = true,
-    bool $is_referrer_url_allowed = true
+    bool $is_referrer_url_allowed = true,
+    bool $is_event_source_url_allowed = true
   ) {
     $this->is_fbc_allowed = $is_fbc_allowed;
     $this->is_fbp_allowed = $is_fbp_allowed;
     $this->is_client_ip_address_allowed = $is_client_ip_address_allowed;
     $this->is_referrer_url_allowed = $is_referrer_url_allowed;
+    $this->is_event_source_url_allowed = $is_event_source_url_allowed;
   }
 
   /**
@@ -88,5 +92,13 @@ class Preference {
    */
   public function isReferrerUrlAllowed() {
     return $this->is_referrer_url_allowed;
+  }
+
+  /**
+   * Gets whether event_source_url is allowed to be set from the request context.
+   * @return bool
+   */
+  public function isEventSourceUrlAllowed() {
+    return $this->is_event_source_url_allowed;
   }
 }
