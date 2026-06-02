@@ -104,6 +104,7 @@ class EventRequestContextTest extends AbstractUnitTestCase {
     $this->assertTrue($pref->isFbpAllowed());
     $this->assertTrue($pref->isClientIpAddressAllowed());
     $this->assertTrue($pref->isReferrerUrlAllowed());
+    $this->assertTrue($pref->isEventSourceUrlAllowed());
   }
 
   public function testSetRequestContextReturnsSelfForChaining() {
@@ -252,6 +253,8 @@ class EventRequestContextTest extends AbstractUnitTestCase {
   public function testPreferenceDisallowAllSuppressesAllAutoPopulation() {
     $_SERVER = [
       'HTTP_HOST' => 'shop.example.com',
+      'REQUEST_URI' => '/cart',
+      'HTTPS' => 'on',
       'HTTP_X_FORWARDED_FOR' => '203.0.113.42',
     ];
     $_COOKIE = [
@@ -259,16 +262,80 @@ class EventRequestContextTest extends AbstractUnitTestCase {
       '_fbp' => 'fb.1.1700000000000.YY',
     ];
 
-    $pref = new Preference(false, false, false, false);
+    $pref = new Preference(false, false, false, false, false);
     $event = (new Event())
       ->setEventName('PageView')
       ->setEventTime(1700000031)
       ->setRequestContext(null, $pref);
-    $ud = $event->normalize()['user_data'] ?? [];
+    $payload = $event->normalize();
+    $ud = $payload['user_data'] ?? [];
 
     $this->assertArrayNotHasKey('fbc', $ud);
     $this->assertArrayNotHasKey('fbp', $ud);
     $this->assertArrayNotHasKey('client_ip_address', $ud);
+    $this->assertArrayNotHasKey('event_source_url', $payload);
+  }
+
+  // ---------------------------------------------------------------------
+  // event_source_url auto-population. The real package's
+  // RequestContextAdaptor assembles the URL from $_SERVER (scheme + host +
+  // REQUEST_URI) inside processRequestFromContext(), and ParamBuilder
+  // appends an appendix token, so we assert on the URL prefix.
+  // ---------------------------------------------------------------------
+
+  public function testNormalizeAutoPopulatesEventSourceUrlFromContext() {
+    $_SERVER = [
+      'HTTP_HOST' => 'shop.example.com',
+      'REQUEST_URI' => '/cart',
+      'HTTPS' => 'on',
+    ];
+
+    $event = (new Event())
+      ->setEventName('PageView')
+      ->setEventTime(1700000060)
+      ->setRequestContext(null);
+    $payload = $event->normalize();
+
+    $this->assertNotEmpty($payload['event_source_url']);
+    $this->assertStringStartsWith(
+      'https://shop.example.com/cart',
+      $payload['event_source_url']);
+  }
+
+  public function testCallerSuppliedEventSourceUrlTakesPrecedenceOverBuilder() {
+    $_SERVER = [
+      'HTTP_HOST' => 'shop.example.com',
+      'REQUEST_URI' => '/from-builder',
+      'HTTPS' => 'on',
+    ];
+
+    $event = (new Event())
+      ->setEventName('Lead')
+      ->setEventTime(1700000061)
+      ->setEventSourceUrl('https://from-caller/')
+      ->setRequestContext(null);
+    $payload = $event->normalize();
+
+    $this->assertEquals('https://from-caller/', $payload['event_source_url']);
+  }
+
+  public function testPreferenceEventSourceUrlFalseGatesEventSourceUrl() {
+    $_SERVER = [
+      'HTTP_HOST' => 'shop.example.com',
+      'REQUEST_URI' => '/cart',
+      'HTTPS' => 'on',
+    ];
+    $_COOKIE = ['_fbc' => 'fb.1.1700000000000.WITHFBC'];
+
+    $pref = new Preference(/*fbc*/ true, /*fbp*/ true, /*ip*/ true, /*referrer*/ true, /*event_source_url*/ false);
+    $event = (new Event())
+      ->setEventName('PageView')
+      ->setEventTime(1700000062)
+      ->setRequestContext(null, $pref);
+    $payload = $event->normalize();
+
+    $this->assertNotEmpty($payload['user_data']['fbc']);
+    $this->assertArrayNotHasKey('event_source_url', $payload);
   }
 
   public function testOrderIndependence_setUserDataBeforeSetRequestContext() {

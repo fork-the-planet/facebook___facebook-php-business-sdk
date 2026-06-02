@@ -616,10 +616,10 @@ class Event implements ArrayAccess {
   }
 
   /**
-   * Fills empty UserData fields from the ParamBuilder-extracted values, gated
-   * by Preference. No-op when setRequestContext was never called. Idempotent:
-   * only fills fields that are currently empty, so the user's explicit
-   * UserData values always take precedence regardless of call order.
+   * Fills empty UserData and Event fields from the ParamBuilder-extracted
+   * values, gated by Preference. No-op when setRequestContext was never
+   * called. Idempotent: only fills fields that are currently empty, so the
+   * caller's explicit values always take precedence regardless of call order.
    */
   private function applyParamBuilderDefaults() {
     if ($this->param_builder === null) {
@@ -639,6 +639,11 @@ class Event implements ArrayAccess {
       $user_data->setClientIpAddress($builder_ip);
     }
     $this->container['user_data'] = $user_data;
+
+    $builder_event_source_url = $this->param_builder->getEventSourceUrl();
+    if ($this->preference->isEventSourceUrlAllowed() && !$this->getEventSourceUrl() && $builder_event_source_url) {
+      $this->setEventSourceUrl($builder_event_source_url);
+    }
   }
 
   /**
