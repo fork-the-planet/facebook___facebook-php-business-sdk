@@ -55,6 +55,7 @@ class Event implements ArrayAccess {
     'messaging_channel' => 'string',
     'original_event_data' => 'FacebookAds\Object\ServerSide\OriginalEventData',
     'attribution_data' => 'FacebookAds\Object\ServerSide\AttributionData',
+    'referrer_url' => 'string',
   );
   /**
    * Array of attributes where the key is the local name, and the value is the original name
@@ -77,6 +78,7 @@ class Event implements ArrayAccess {
     'messaging_channel' => 'messaging_channel',
     'original_event_data' => 'original_event_data',
     'attribution_data' => 'attribution_data',
+    'referrer_url' => 'referrer_url',
   );
 
   /**
@@ -100,6 +102,7 @@ class Event implements ArrayAccess {
     'messaging_channel' => 'setMessagingChannel',
     'original_event_data' => 'setOriginalEventData',
     'attribution_data' => 'setAttributionData',
+    'referrer_url' => 'setReferrerUrl',
   );
   /**
    * Array of attributes to getter functions (for serialization of requests)
@@ -122,6 +125,7 @@ class Event implements ArrayAccess {
     'messaging_channel' => 'getMessagingChannel',
     'original_event_data' => 'getOriginalEventData',
     'attribution_data' => 'getAttributionData',
+    'referrer_url' => 'getReferrerUrl',
   );
   /**
    * Associative array for storing property values
@@ -156,6 +160,7 @@ class Event implements ArrayAccess {
     $this->container['messaging_channel'] = isset($data['messaging_channel']) ? $data['messaging_channel'] : null;
     $this->container['original_event_data'] = isset($data['original_event_data']) ? $data['original_event_data'] : null;
     $this->container['attribution_data'] = isset($data['attribution_data']) ? $data['attribution_data'] : null;
+    $this->container['referrer_url'] = isset($data['referrer_url']) ? $data['referrer_url'] : null;
   }
 
   public static function paramTypes() {
@@ -241,6 +246,18 @@ class Event implements ArrayAccess {
    */
   public function setEventSourceUrl($event_source_url) {
     $this->container['event_source_url'] = $event_source_url;
+
+    return $this;
+  }
+
+  /**
+   * Sets the referrer URL of the browser request that triggered the event
+   * @param string $referrer_url The referrer URL of the browser request that
+   *      triggered the event.
+   * @return $this
+   */
+  public function setReferrerUrl($referrer_url) {
+    $this->container['referrer_url'] = $referrer_url;
 
     return $this;
   }
@@ -412,6 +429,7 @@ class Event implements ArrayAccess {
     $normalized_payload['event_name'] = $this->getEventName();
     $normalized_payload['event_time'] = $this->getEventTime();
     $normalized_payload['event_source_url'] = $this->getEventSourceUrl();
+    $normalized_payload['referrer_url'] = $this->getReferrerUrl();
     $normalized_payload['opt_out'] = $this->getOptOut();
     $normalized_payload['event_id'] = $this->getEventId();
     $normalized_payload['user_data'] = isset($this->container['user_data']) ? $this->getUserData()->normalize() : null;
@@ -460,6 +478,14 @@ class Event implements ArrayAccess {
    */
   public function getEventSourceUrl() {
     return $this->container['event_source_url'];
+  }
+
+  /**
+   * Gets the referrer URL of the browser request that triggered the event.
+   * @return string
+   */
+  public function getReferrerUrl() {
+    return $this->container['referrer_url'];
   }
 
   /**
@@ -643,6 +669,11 @@ class Event implements ArrayAccess {
     $builder_event_source_url = $this->param_builder->getEventSourceUrl();
     if ($this->preference->isEventSourceUrlAllowed() && !$this->getEventSourceUrl() && $builder_event_source_url) {
       $this->setEventSourceUrl($builder_event_source_url);
+    }
+
+    $builder_referrer_url = $this->param_builder->getReferrerUrl();
+    if ($this->preference->isReferrerUrlAllowed() && !$this->getReferrerUrl() && $builder_referrer_url) {
+      $this->setReferrerUrl($builder_referrer_url);
     }
   }
 

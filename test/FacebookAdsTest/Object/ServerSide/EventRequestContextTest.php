@@ -255,6 +255,7 @@ class EventRequestContextTest extends AbstractUnitTestCase {
       'HTTP_HOST' => 'shop.example.com',
       'REQUEST_URI' => '/cart',
       'HTTPS' => 'on',
+      'HTTP_REFERER' => 'https://referrer.example.com/',
       'HTTP_X_FORWARDED_FOR' => '203.0.113.42',
     ];
     $_COOKIE = [
@@ -274,6 +275,7 @@ class EventRequestContextTest extends AbstractUnitTestCase {
     $this->assertArrayNotHasKey('fbp', $ud);
     $this->assertArrayNotHasKey('client_ip_address', $ud);
     $this->assertArrayNotHasKey('event_source_url', $payload);
+    $this->assertArrayNotHasKey('referrer_url', $payload);
   }
 
   // ---------------------------------------------------------------------
@@ -336,6 +338,64 @@ class EventRequestContextTest extends AbstractUnitTestCase {
 
     $this->assertNotEmpty($payload['user_data']['fbc']);
     $this->assertArrayNotHasKey('event_source_url', $payload);
+  }
+
+  // ---------------------------------------------------------------------
+  // referrer_url auto-population. The real package reads $_SERVER
+  // HTTP_REFERER inside processRequestFromContext() and ParamBuilder
+  // appends an appendix token, so we assert on the URL prefix.
+  // ---------------------------------------------------------------------
+
+  public function testNormalizeAutoPopulatesReferrerUrlFromContext() {
+    $_SERVER = [
+      'HTTP_HOST' => 'shop.example.com',
+      'HTTP_REFERER' => 'https://google.com/search?q=foo',
+    ];
+
+    $event = (new Event())
+      ->setEventName('PageView')
+      ->setEventTime(1700000070)
+      ->setRequestContext(null);
+    $payload = $event->normalize();
+
+    $this->assertNotEmpty($payload['referrer_url']);
+    $this->assertStringStartsWith(
+      'https://google.com/search?q=foo',
+      $payload['referrer_url']);
+  }
+
+  public function testCallerSuppliedReferrerUrlTakesPrecedenceOverBuilder() {
+    $_SERVER = [
+      'HTTP_HOST' => 'shop.example.com',
+      'HTTP_REFERER' => 'https://builder.example.com/',
+    ];
+
+    $event = (new Event())
+      ->setEventName('Lead')
+      ->setEventTime(1700000071)
+      ->setReferrerUrl('https://caller.example.com/')
+      ->setRequestContext(null);
+    $payload = $event->normalize();
+
+    $this->assertEquals('https://caller.example.com/', $payload['referrer_url']);
+  }
+
+  public function testPreferenceReferrerUrlFalseGatesReferrerUrl() {
+    $_SERVER = [
+      'HTTP_HOST' => 'shop.example.com',
+      'HTTP_REFERER' => 'https://builder.example.com/',
+    ];
+    $_COOKIE = ['_fbc' => 'fb.1.1700000000000.WITHFBC'];
+
+    $pref = new Preference(/*fbc*/ true, /*fbp*/ true, /*ip*/ true, /*referrer*/ false, /*event_source_url*/ true);
+    $event = (new Event())
+      ->setEventName('PageView')
+      ->setEventTime(1700000072)
+      ->setRequestContext(null, $pref);
+    $payload = $event->normalize();
+
+    $this->assertNotEmpty($payload['user_data']['fbc']);
+    $this->assertArrayNotHasKey('referrer_url', $payload);
   }
 
   public function testOrderIndependence_setUserDataBeforeSetRequestContext() {
