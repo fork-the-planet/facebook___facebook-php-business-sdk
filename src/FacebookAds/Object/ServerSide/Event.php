@@ -25,6 +25,7 @@
 namespace FacebookAds\Object\ServerSide;
 
 use ArrayAccess;
+use FacebookAds\ParamBuilder;
 
 /**
  * Server-Side Event
@@ -131,6 +132,8 @@ class Event implements ArrayAccess {
   protected $context = null;
 
   protected $preference = null;
+
+  protected $param_builder = null;
 
   /**
    * Constructor
@@ -604,6 +607,8 @@ class Event implements ArrayAccess {
   public function setRequestContext($context, ?Preference $preference = null) {
     $this->context = $context;
     $this->preference = $preference ?? new Preference();
+    $this->param_builder = new ParamBuilder();
+    $this->param_builder->processRequestFromContext($context);
     return $this;
   }
 
