@@ -34,59 +34,59 @@ namespace FacebookAds\Object\ServerSide;
  */
 class Preference {
 
-  private $fbc;
-  private $fbp;
-  private $client_ip_address;
-  private $referrer_url;
+  private $is_fbc_allowed;
+  private $is_fbp_allowed;
+  private $is_client_ip_address_allowed;
+  private $is_referrer_url_allowed;
 
   /**
    * Constructor
-   * @param bool $fbc Whether fbc is allowed (default: true)
-   * @param bool $fbp Whether fbp is allowed (default: true)
-   * @param bool $client_ip_address Whether client_ip_address is allowed (default: true)
-   * @param bool $referrer_url Whether referrer_url is allowed (default: true)
+   * @param bool $is_fbc_allowed Whether fbc is allowed (default: true)
+   * @param bool $is_fbp_allowed Whether fbp is allowed (default: true)
+   * @param bool $is_client_ip_address_allowed Whether client_ip_address is allowed (default: true)
+   * @param bool $is_referrer_url_allowed Whether referrer_url is allowed (default: true)
    */
   public function __construct(
-    bool $fbc = true,
-    bool $fbp = true,
-    bool $client_ip_address = true,
-    bool $referrer_url = true
+    bool $is_fbc_allowed = true,
+    bool $is_fbp_allowed = true,
+    bool $is_client_ip_address_allowed = true,
+    bool $is_referrer_url_allowed = true
   ) {
-    $this->fbc = $fbc;
-    $this->fbp = $fbp;
-    $this->client_ip_address = $client_ip_address;
-    $this->referrer_url = $referrer_url;
+    $this->is_fbc_allowed = $is_fbc_allowed;
+    $this->is_fbp_allowed = $is_fbp_allowed;
+    $this->is_client_ip_address_allowed = $is_client_ip_address_allowed;
+    $this->is_referrer_url_allowed = $is_referrer_url_allowed;
   }
 
   /**
    * Gets whether fbc is allowed to be set from the request context.
    * @return bool
    */
-  public function getFbc() {
-    return $this->fbc;
+  public function isFbcAllowed() {
+    return $this->is_fbc_allowed;
   }
 
   /**
    * Gets whether fbp is allowed to be set from the request context.
    * @return bool
    */
-  public function getFbp() {
-    return $this->fbp;
+  public function isFbpAllowed() {
+    return $this->is_fbp_allowed;
   }
 
   /**
    * Gets whether client_ip_address is allowed to be set from the request context.
    * @return bool
    */
-  public function getClientIpAddress() {
-    return $this->client_ip_address;
+  public function isClientIpAddressAllowed() {
+    return $this->is_client_ip_address_allowed;
   }
 
   /**
    * Gets whether referrer_url is allowed to be set from the request context.
    * @return bool
    */
-  public function getReferrerUrl() {
-    return $this->referrer_url;
+  public function isReferrerUrlAllowed() {
+    return $this->is_referrer_url_allowed;
   }
 }
