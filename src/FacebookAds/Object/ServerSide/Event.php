@@ -128,6 +128,10 @@ class Event implements ArrayAccess {
    */
   protected $container = array();
 
+  protected $context = null;
+
+  protected $preference = null;
+
   /**
    * Constructor
    * @param mixed[] $data Associated array of property value initializing the model
@@ -585,6 +589,38 @@ class Event implements ArrayAccess {
    */
   public function getAttributionData() {
     return $this->container['attribution_data'];
+  }
+
+  /**
+   * Sets the request context and optional preference for automatic data extraction.
+   * This triggers CAPI ParamBuilder to extract parameters like fbc, fbp,
+   * client_ip_address, and referrer_url from the context object and automatically
+   * set them on the event. The preference object controls which data are allowed
+   * to be set. If no preference is provided, all fields default to true.
+   * @param mixed $context The context object (e.g. HTTP request object)
+   * @param Preference|null $preference Optional preference object to control auto-extraction
+   * @return $this
+   */
+  public function setRequestContext($context, ?Preference $preference = null) {
+    $this->context = $context;
+    $this->preference = $preference ?? new Preference();
+    return $this;
+  }
+
+  /**
+   * Gets the request context object.
+   * @return mixed
+   */
+  public function getRequestContext() {
+    return $this->context;
+  }
+
+  /**
+   * Gets the Preference object.
+   * @return Preference|null
+   */
+  public function getPreference() {
+    return $this->preference;
   }
 
   /**
