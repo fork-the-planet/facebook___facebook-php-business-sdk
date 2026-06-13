@@ -256,6 +256,69 @@ while ($cursor->valid()) {
 
 ```
 
+## Conversions API
+
+The Business SDK includes a server-side client for the [Conversions API](https://developers.facebook.com/docs/marketing-api/conversions-api), used to send web, app, and offline events to Meta directly from your server.
+
+```php
+use FacebookAds\Api;
+use FacebookAds\Object\ServerSide\ActionSource;
+use FacebookAds\Object\ServerSide\CustomData;
+use FacebookAds\Object\ServerSide\Event;
+use FacebookAds\Object\ServerSide\EventRequest;
+use FacebookAds\Object\ServerSide\UserData;
+
+Api::init(null, null, '<ACCESS_TOKEN>');
+
+$user_data = (new UserData())
+  ->setEmail('joe@eg.com')
+  ->setClientIpAddress($_SERVER['REMOTE_ADDR'])
+  ->setClientUserAgent($_SERVER['HTTP_USER_AGENT']);
+
+$custom_data = (new CustomData())
+  ->setCurrency('usd')
+  ->setValue(123.45);
+
+$event = (new Event())
+  ->setEventName('Purchase')
+  ->setEventTime(time())
+  ->setEventSourceUrl('http://jaspers-market.com/product/123')
+  ->setUserData($user_data)
+  ->setCustomData($custom_data)
+  ->setActionSource(ActionSource::WEBSITE);
+
+$response = (new EventRequest('<PIXEL_ID>'))
+  ->setEvents([$event])
+  ->execute();
+print($response);
+```
+
+For advanced features — asynchronous requests, concurrent batching, and a custom HTTP service — see [Meta Business SDK Features for Conversions API](https://developers.facebook.com/documentation/ads-commerce/conversions-api/guides/business-sdk-features/).
+
+### Conversions API Parameter Builder integration
+
+The SDK bundles the [Conversions API Parameter Builder](https://github.com/facebook/capi-param-builder) ([PHP README](https://github.com/facebook/capi-param-builder/blob/main/php/README.md)) so it can auto-fill key event parameters straight from the incoming HTTP request. Call `setRequestContext()` on an event and pass the incoming request — see [Framework support](https://github.com/facebook/capi-param-builder/blob/main/php/README.md#framework-support) for exactly what to pass for your framework (e.g. `$_SERVER`, or your framework's server bag such as `$request->server->all()`). At send time the SDK runs the Parameter Builder and fills in any of these fields you left empty:
+
+- `user_data.fbc`, `user_data.fbp`, `user_data.client_ip_address`
+- `event_source_url`, `referrer_url`
+
+```php
+use FacebookAds\Object\ServerSide\Preference;
+
+$event = (new Event())
+  ->setEventName('Purchase')
+  ->setEventTime(time())
+  ->setUserData((new UserData())->setEmail('joe@eg.com'))
+  ->setActionSource(ActionSource::WEBSITE)
+  ->setRequestContext($_SERVER);
+
+// Optional: gate which fields may be auto-filled (all default true).
+// Order: fbc, fbp, client_ip_address, referrer_url, event_source_url.
+//   ->setRequestContext($_SERVER, new Preference(true, true, true, true, false));
+```
+
+Auto-fill is **gated** by the optional `Preference` allowlist, **non-destructive** (a value you set yourself is never overwritten), and **order-independent**. In PHP, `UserData` customer-information parameters (email, phone, etc.) are also normalized and SHA-256 hashed automatically via the Parameter Builder, following Meta's best practices.
+
 ## Tests
 
 The 'test' folder contains the test cases. These are logically divided in unit and integration tests.
