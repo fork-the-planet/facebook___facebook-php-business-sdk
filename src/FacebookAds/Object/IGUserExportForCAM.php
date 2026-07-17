@@ -18,6 +18,7 @@ use FacebookAds\Object\Values\IGUserExportForCAMCreatorCountriesValues;
 use FacebookAds\Object\Values\IGUserExportForCAMCreatorGenderValues;
 use FacebookAds\Object\Values\IGUserExportForCAMMajorAudienceCountriesValues;
 use FacebookAds\Object\Values\IGUserExportForCAMMajorAudienceGenderValues;
+use FacebookAds\Object\Values\IGUserExportForCAMPlatformValues;
 use FacebookAds\Object\Values\IGUserExportForCAMRecommendationTypeValues;
 
 /**
@@ -44,6 +45,7 @@ class IGUserExportForCAM extends AbstractCrudObject {
     $ref_enums['CreatorGender'] = IGUserExportForCAMCreatorGenderValues::getInstance()->getValues();
     $ref_enums['MajorAudienceCountries'] = IGUserExportForCAMMajorAudienceCountriesValues::getInstance()->getValues();
     $ref_enums['MajorAudienceGender'] = IGUserExportForCAMMajorAudienceGenderValues::getInstance()->getValues();
+    $ref_enums['Platform'] = IGUserExportForCAMPlatformValues::getInstance()->getValues();
     $ref_enums['RecommendationType'] = IGUserExportForCAMRecommendationTypeValues::getInstance()->getValues();
     return $ref_enums;
   }
@@ -79,6 +81,7 @@ class IGUserExportForCAM extends AbstractCrudObject {
       'breakdown' => 'breakdown_enum',
       'metrics' => 'list<metrics_enum>',
       'period' => 'period_enum',
+      'platform' => 'list<platform_enum>',
       'time_range' => 'time_range_enum',
     );
     $enums = array(
@@ -100,6 +103,10 @@ class IGUserExportForCAM extends AbstractCrudObject {
       'period_enum' => array(
         'DAY',
         'OVERALL',
+      ),
+      'platform_enum' => array(
+        'FACEBOOK',
+        'INSTAGRAM',
       ),
       'time_range_enum' => array(
         'LAST_14_DAYS',

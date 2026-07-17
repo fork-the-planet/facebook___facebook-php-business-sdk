@@ -25,6 +25,7 @@ class AudioIsrcFields extends AbstractEnum {
   const ALL_KG_FEATURED_ARTISTS = 'all_kg_featured_artists';
   const ALL_KG_MAIN_ARTISTS = 'all_kg_main_artists';
   const ARTIST_PROFILE_PICTURE_URL = 'artist_profile_picture_url';
+  const CANONICAL_AUDIO_ASSET = 'canonical_audio_asset';
   const ID = 'id';
   const ISRC = 'isrc';
   const PUBLISHING_RIGHTS_DATA = 'publishing_rights_data';
@@ -37,6 +38,7 @@ class AudioIsrcFields extends AbstractEnum {
       'all_kg_featured_artists' => 'string',
       'all_kg_main_artists' => 'string',
       'artist_profile_picture_url' => 'string',
+      'canonical_audio_asset' => 'AudioAsset',
       'id' => 'string',
       'isrc' => 'string',
       'publishing_rights_data' => 'Object',

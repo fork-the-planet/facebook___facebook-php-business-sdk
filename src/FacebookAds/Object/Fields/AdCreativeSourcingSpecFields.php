@@ -31,6 +31,7 @@ class AdCreativeSourcingSpecFields extends AbstractEnum {
   const ENABLE_SOCIAL_FEEDBACK_PRESERVATION = 'enable_social_feedback_preservation';
   const FEATURED_OFFERING_SPEC = 'featured_offering_spec';
   const INTENT = 'intent';
+  const NCS_TESTIMONIAL = 'ncs_testimonial';
   const PCA_SPEC = 'pca_spec';
   const PRODUCT_MEDIA_METADATA_SPEC = 'product_media_metadata_spec';
   const PROMOTION_METADATA_SPEC = 'promotion_metadata_spec';
@@ -51,6 +52,7 @@ class AdCreativeSourcingSpecFields extends AbstractEnum {
       'enable_social_feedback_preservation' => 'bool',
       'featured_offering_spec' => 'Object',
       'intent' => 'Object',
+      'ncs_testimonial' => 'Object',
       'pca_spec' => 'Object',
       'product_media_metadata_spec' => 'Object',
       'promotion_metadata_spec' => 'list<AdCreativePromotionMetadataSpec>',

@@ -86,6 +86,9 @@ class AdActivityEventTypeValues extends AbstractEnum {
   const UPDATE_AD_SET_BID_STRATEGY = 'update_ad_set_bid_strategy';
   const UPDATE_AD_SET_BIDDING = 'update_ad_set_bidding';
   const UPDATE_AD_SET_BUDGET = 'update_ad_set_budget';
+  const UPDATE_AD_SET_BUDGET_SCALING_COST_TARGET = 'update_ad_set_budget_scaling_cost_target';
+  const UPDATE_AD_SET_BUDGET_SCALING_EXTRA_BUDGET = 'update_ad_set_budget_scaling_extra_budget';
+  const UPDATE_AD_SET_BUDGET_SCALING_STATUS = 'update_ad_set_budget_scaling_status';
   const UPDATE_AD_SET_COST_BIDDING_MODE = 'update_ad_set_cost_bidding_mode';
   const UPDATE_AD_SET_DURATION = 'update_ad_set_duration';
   const UPDATE_AD_SET_LEARNING_STAGE_STATUS = 'update_ad_set_learning_stage_status';
@@ -112,6 +115,9 @@ class AdActivityEventTypeValues extends AbstractEnum {
   const UPDATE_CAMPAIGN_DELIVERY_TYPE = 'update_campaign_delivery_type';
   const UPDATE_CAMPAIGN_GROUP_AD_SCHEDULING = 'update_campaign_group_ad_scheduling';
   const UPDATE_CAMPAIGN_GROUP_AGENCY_FEE = 'update_campaign_group_agency_fee';
+  const UPDATE_CAMPAIGN_GROUP_BUDGET_SCALING_COST_TARGET = 'update_campaign_group_budget_scaling_cost_target';
+  const UPDATE_CAMPAIGN_GROUP_BUDGET_SCALING_EXTRA_BUDGET = 'update_campaign_group_budget_scaling_extra_budget';
+  const UPDATE_CAMPAIGN_GROUP_BUDGET_SCALING_STATUS = 'update_campaign_group_budget_scaling_status';
   const UPDATE_CAMPAIGN_GROUP_BUDGET_SCHEDULING_STATE = 'update_campaign_group_budget_scheduling_state';
   const UPDATE_CAMPAIGN_GROUP_DELIVERY_TYPE = 'update_campaign_group_delivery_type';
   const UPDATE_CAMPAIGN_GROUP_HIGH_DEMAND_PERIODS = 'update_campaign_group_high_demand_periods';

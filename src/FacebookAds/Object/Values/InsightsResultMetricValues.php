@@ -23,7 +23,6 @@ use FacebookAds\Enum\AbstractEnum;
 class InsightsResultMetricValues extends AbstractEnum {
 
   const COMMENTS = 'comments';
-  const CONTENT_VIEWS = 'content_views';
   const CROSSPOSTED_VIEWS = 'crossposted_views';
   const FACEBOOK_VIEWS = 'facebook_views';
   const FOLLOWS = 'follows';

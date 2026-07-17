@@ -23,6 +23,7 @@ use FacebookAds\Enum\AbstractEnum;
 class AdsValueAdjustmentRuleCollectionEntryPointValues extends AbstractEnum {
 
   const ADVERTISING_SETTINGS = 'ADVERTISING_SETTINGS';
+  const L2_AUDIENCE = 'L2_AUDIENCE';
   const L2_CONVERSION_LOCATION = 'L2_CONVERSION_LOCATION';
   const L2_GLOBAL = 'L2_GLOBAL';
   const L2_NCA_GOAL = 'L2_NCA_GOAL';

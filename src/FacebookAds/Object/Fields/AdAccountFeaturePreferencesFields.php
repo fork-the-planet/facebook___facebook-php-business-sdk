@@ -20,17 +20,13 @@ use FacebookAds\Enum\AbstractEnum;
  *
  */
 
-class IGShoppingReviewStatusFields extends AbstractEnum {
+class AdAccountFeaturePreferencesFields extends AbstractEnum {
 
-  const ONSITE_ELIGIBILITY = 'onsite_eligibility';
-  const REASONS = 'reasons';
-  const STATUS = 'status';
+  const ID = 'id';
 
   public function getFieldTypes() {
     return array(
-      'onsite_eligibility' => 'IGShoppingReviewStatusOnsiteEligibility',
-      'reasons' => 'list<IGShoppingReviewStatusReasonWithHelpMessage>',
-      'status' => 'string',
+      'id' => 'string',
     );
   }
 }

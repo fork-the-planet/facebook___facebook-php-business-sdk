@@ -438,6 +438,7 @@ class CustomAudience extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'acting_account_id' => 'unsigned int',
       'allowed_domains' => 'list<string>',
       'audience_labels' => 'list<audience_labels_enum>',
       'claim_objective' => 'claim_objective_enum',

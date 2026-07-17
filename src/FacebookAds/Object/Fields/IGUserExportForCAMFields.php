@@ -35,7 +35,10 @@ class IGUserExportForCAMFields extends AbstractEnum {
   const IS_PAID_PARTNERSHIP_MESSAGES_ENABLED = 'is_paid_partnership_messages_enabled';
   const MESSAGING_ID = 'messaging_id';
   const ONBOARDED_STATUS = 'onboarded_status';
+  const PAGE_ID = 'page_id';
+  const PAGE_NAME = 'page_name';
   const PAST_BRAND_PARTNERSHIP_PARTNERS = 'past_brand_partnership_partners';
+  const PLATFORMS = 'platforms';
   const PORTFOLIO_URL = 'portfolio_url';
   const PROFILE_PICTURE_URL = 'profile_picture_url';
   const USERNAME = 'username';
@@ -55,7 +58,10 @@ class IGUserExportForCAMFields extends AbstractEnum {
       'is_paid_partnership_messages_enabled' => 'bool',
       'messaging_id' => 'string',
       'onboarded_status' => 'bool',
+      'page_id' => 'string',
+      'page_name' => 'string',
       'past_brand_partnership_partners' => 'list<string>',
+      'platforms' => 'list<string>',
       'portfolio_url' => 'string',
       'profile_picture_url' => 'string',
       'username' => 'string',

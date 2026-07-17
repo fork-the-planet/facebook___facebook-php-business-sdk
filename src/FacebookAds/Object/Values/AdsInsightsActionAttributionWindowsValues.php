@@ -24,17 +24,24 @@ class AdsInsightsActionAttributionWindowsValues extends AbstractEnum {
 
   const VALUE_1D_CLICK = '1d_click';
   const VALUE_1D_EV = '1d_ev';
+  const VALUE_1D_SEQUENCED = '1d_sequenced';
   const VALUE_1D_VIEW = '1d_view';
   const VALUE_28D_CLICK = '28d_click';
+  const VALUE_28D_SEQUENCED = '28d_sequenced';
   const VALUE_28D_VIEW = '28d_view';
   const VALUE_28D_VIEW_ALL_CONVERSIONS = '28d_view_all_conversions';
   const VALUE_28D_VIEW_FIRST_CONVERSION = '28d_view_first_conversion';
   const VALUE_7D_CLICK = '7d_click';
+  const VALUE_7D_SEQUENCED = '7d_sequenced';
   const VALUE_7D_VIEW = '7d_view';
   const VALUE_7D_VIEW_ALL_CONVERSIONS = '7d_view_all_conversions';
   const VALUE_7D_VIEW_FIRST_CONVERSION = '7d_view_first_conversion';
+  const CUSTOM = 'custom';
   const DDA = 'dda';
   const VALUE_DEFAULT = 'default';
+  const INCREMENTALITY = 'incrementality';
+  const INCREMENTALITY_ALL_CONVERSIONS = 'incrementality_all_conversions';
+  const INCREMENTALITY_FIRST_CONVERSION = 'incrementality_first_conversion';
   const SKAN_CLICK = 'skan_click';
   const SKAN_CLICK_SECOND_POSTBACK = 'skan_click_second_postback';
   const SKAN_CLICK_THIRD_POSTBACK = 'skan_click_third_postback';

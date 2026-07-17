@@ -51,6 +51,7 @@ class WhatsAppBusinessAccountFields extends AbstractEnum {
   const TEMPLATE_AUTO_ARCHIVAL_ENABLED = 'template_auto_archival_enabled';
   const TIMEZONE_ID = 'timezone_id';
   const WHATSAPP_BUSINESS_MANAGER_MESSAGING_LIMIT = 'whatsapp_business_manager_messaging_limit';
+  const WHATSAPP_MANAGER_MARKETING_MESSAGES_MAX_PRICE_ENROLL_STATUS = 'whatsapp_manager_marketing_messages_max_price_enroll_status';
 
   public function getFieldTypes() {
     return array(
@@ -83,6 +84,7 @@ class WhatsAppBusinessAccountFields extends AbstractEnum {
       'template_auto_archival_enabled' => 'bool',
       'timezone_id' => 'string',
       'whatsapp_business_manager_messaging_limit' => 'WhatsappBusinessManagerMessagingLimit',
+      'whatsapp_manager_marketing_messages_max_price_enroll_status' => 'string',
     );
   }
 }

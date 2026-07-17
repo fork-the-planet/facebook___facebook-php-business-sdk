@@ -19,6 +19,7 @@ use FacebookAds\Object\Values\IGUserExportForCAMCreatorCountriesValues;
 use FacebookAds\Object\Values\IGUserExportForCAMCreatorGenderValues;
 use FacebookAds\Object\Values\IGUserExportForCAMMajorAudienceCountriesValues;
 use FacebookAds\Object\Values\IGUserExportForCAMMajorAudienceGenderValues;
+use FacebookAds\Object\Values\IGUserExportForCAMPlatformValues;
 use FacebookAds\Object\Values\IGUserExportForCAMRecommendationTypeValues;
 use FacebookAds\Object\Values\InstagramInsightsResultBreakdownValues;
 use FacebookAds\Object\Values\InstagramInsightsResultMetricTypeValues;
@@ -487,6 +488,7 @@ class IGUser extends AbstractCrudObject {
       'major_audience_device_type' => 'list<Object>',
       'major_audience_gender' => 'list<major_audience_gender_enum>',
       'major_audience_states' => 'list<string>',
+      'platform' => 'list<platform_enum>',
       'query' => 'string',
       'recommendation_type' => 'recommendation_type_enum',
       'reels_interaction_rate' => 'Object',
@@ -500,6 +502,7 @@ class IGUser extends AbstractCrudObject {
       'creator_gender_enum' => IGUserExportForCAMCreatorGenderValues::getInstance()->getValues(),
       'major_audience_countries_enum' => IGUserExportForCAMMajorAudienceCountriesValues::getInstance()->getValues(),
       'major_audience_gender_enum' => IGUserExportForCAMMajorAudienceGenderValues::getInstance()->getValues(),
+      'platform_enum' => IGUserExportForCAMPlatformValues::getInstance()->getValues(),
       'recommendation_type_enum' => IGUserExportForCAMRecommendationTypeValues::getInstance()->getValues(),
     );
 
@@ -709,6 +712,7 @@ class IGUser extends AbstractCrudObject {
       'collaborators' => 'list<string>',
       'cover_url' => 'string',
       'image_url' => 'string',
+      'is_ai_generated' => 'bool',
       'is_carousel_item' => 'bool',
       'is_paid_partnership' => 'bool',
       'location_id' => 'string',
@@ -964,6 +968,9 @@ class IGUser extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'media_type' => 'string',
+      'posted_after' => 'string',
+      'posted_before' => 'string',
     );
     $enums = array(
     );

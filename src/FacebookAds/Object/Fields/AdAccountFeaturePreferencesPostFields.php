@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-namespace FacebookAds\Object\Values;
+namespace FacebookAds\Object\Fields;
 
 use FacebookAds\Enum\AbstractEnum;
 
@@ -18,12 +18,15 @@ use FacebookAds\Enum\AbstractEnum;
  * on github and we'll fix in our codegen framework. We'll not be able to accept
  * pull request for this class.
  *
- * @method static ThirdPartyPartnerViewabilityRequestPlatformValues getInstance()
  */
-class ThirdPartyPartnerViewabilityRequestPlatformValues extends AbstractEnum {
 
-  const AUDIENCE_NETWORK = 'AUDIENCE_NETWORK';
-  const FACEBOOK = 'FACEBOOK';
-  const INSTAGRAM = 'INSTAGRAM';
-  const THREADS = 'THREADS';
+class AdAccountFeaturePreferencesPostFields extends AbstractEnum {
+
+  const ID = 'id';
+
+  public function getFieldTypes() {
+    return array(
+      'id' => 'string',
+    );
+  }
 }

@@ -31,6 +31,7 @@ class AdAccountUserSettingsFields extends AbstractEnum {
   const ADS_MANAGER_FOOTER_ROW_TOAST_IMPRESSIONS = 'ads_manager_footer_row_toast_impressions';
   const AUTO_REVIEW_VIDEO_CAPTION = 'auto_review_video_caption';
   const BUDGET_OPTIMIZATION_QUICK_VIEW_CREATED = 'budget_optimization_quick_view_created';
+  const BUDGET_POOL_QV_CREATED = 'budget_pool_qv_created';
   const CAMPAIGN_OVERVIEW_COLUMNS = 'campaign_overview_columns';
   const COLUMN_SUGGESTION_STATUS = 'column_suggestion_status';
   const CONDITIONAL_FORMATTING_RULES = 'conditional_formatting_rules';
@@ -106,6 +107,7 @@ class AdAccountUserSettingsFields extends AbstractEnum {
       'ads_manager_footer_row_toast_impressions' => 'int',
       'auto_review_video_caption' => 'bool',
       'budget_optimization_quick_view_created' => 'bool',
+      'budget_pool_qv_created' => 'bool',
       'campaign_overview_columns' => 'list<string>',
       'column_suggestion_status' => 'string',
       'conditional_formatting_rules' => 'list<string>',

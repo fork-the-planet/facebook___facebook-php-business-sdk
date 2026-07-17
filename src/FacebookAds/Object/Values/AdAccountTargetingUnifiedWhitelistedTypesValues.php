@@ -133,6 +133,7 @@ class AdAccountTargetingUnifiedWhitelistedTypesValues extends AbstractEnum {
   const PRODUCT_AUDIENCE_SPECS = 'product_audience_specs';
   const PROSPECTING_AUDIENCE = 'prospecting_audience';
   const PUBLISHER_PLATFORMS = 'publisher_platforms';
+  const PURCHASE_INTENT = 'purchase_intent';
   const RADIUS = 'radius';
   const REGION_KEYS = 'region_keys';
   const REGIONS = 'regions';

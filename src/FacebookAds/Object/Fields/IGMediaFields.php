@@ -23,6 +23,7 @@ use FacebookAds\Enum\AbstractEnum;
 class IGMediaFields extends AbstractEnum {
 
   const ALT_TEXT = 'alt_text';
+  const AUDIO_ID = 'audio_id';
   const BOOST_ELIGIBILITY_INFO = 'boost_eligibility_info';
   const CAPTION = 'caption';
   const COMMENTS_COUNT = 'comments_count';
@@ -32,6 +33,7 @@ class IGMediaFields extends AbstractEnum {
   const HAS_SLIDER = 'has_slider';
   const ID = 'id';
   const IG_ID = 'ig_id';
+  const IS_AI_GENERATED = 'is_ai_generated';
   const IS_COMMENT_ENABLED = 'is_comment_enabled';
   const IS_SHARED_TO_FEED = 'is_shared_to_feed';
   const LEGACY_INSTAGRAM_MEDIA_ID = 'legacy_instagram_media_id';
@@ -58,6 +60,7 @@ class IGMediaFields extends AbstractEnum {
   public function getFieldTypes() {
     return array(
       'alt_text' => 'string',
+      'audio_id' => 'string',
       'boost_eligibility_info' => 'IGMediaBoostEligibilityInfo',
       'caption' => 'string',
       'comments_count' => 'int',
@@ -67,6 +70,7 @@ class IGMediaFields extends AbstractEnum {
       'has_slider' => 'bool',
       'id' => 'string',
       'ig_id' => 'string',
+      'is_ai_generated' => 'bool',
       'is_comment_enabled' => 'bool',
       'is_shared_to_feed' => 'bool',
       'legacy_instagram_media_id' => 'string',

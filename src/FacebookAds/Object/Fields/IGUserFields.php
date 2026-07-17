@@ -35,6 +35,7 @@ class IGUserFields extends AbstractEnum {
   const MEDIA_COUNT = 'media_count';
   const MENTIONED_COMMENT = 'mentioned_comment';
   const MENTIONED_MEDIA = 'mentioned_media';
+  const MINI_SHOP_STOREFRONT = 'mini_shop_storefront';
   const NAME = 'name';
   const OWNER_BUSINESS = 'owner_business';
   const PROFILE_PICTURE_URL = 'profile_picture_url';
@@ -58,6 +59,7 @@ class IGUserFields extends AbstractEnum {
       'media_count' => 'int',
       'mentioned_comment' => 'IGComment',
       'mentioned_media' => 'IGMedia',
+      'mini_shop_storefront' => 'Shop',
       'name' => 'string',
       'owner_business' => 'Business',
       'profile_picture_url' => 'string',

@@ -23,6 +23,7 @@ use FacebookAds\Enum\AbstractEnum;
 class AdSetFields extends AbstractEnum {
 
   const ACCOUNT_ID = 'account_id';
+  const AD_SET_GOAL = 'ad_set_goal';
   const ADLABELS = 'adlabels';
   const ADSET_SCHEDULE = 'adset_schedule';
   const ASSET_FEED_ID = 'asset_feed_id';
@@ -67,6 +68,7 @@ class AdSetFields extends AbstractEnum {
   const IS_DYNAMIC_CREATIVE = 'is_dynamic_creative';
   const IS_INCREMENTAL_ATTRIBUTION_ENABLED = 'is_incremental_attribution_enabled';
   const IS_ORGANIC_AD_JOINT_OPTIMIZED = 'is_organic_ad_joint_optimized';
+  const IS_SEQUENCED_CONVERSION_CREATION = 'is_sequenced_conversion_creation';
   const ISSUES_INFO = 'issues_info';
   const LEARNING_STAGE_INFO = 'learning_stage_info';
   const LIFETIME_BUDGET = 'lifetime_budget';
@@ -125,6 +127,7 @@ class AdSetFields extends AbstractEnum {
   public function getFieldTypes() {
     return array(
       'account_id' => 'string',
+      'ad_set_goal' => 'AdCampaignGoal',
       'adlabels' => 'list<AdLabel>',
       'adset_schedule' => 'list<DayPart>',
       'asset_feed_id' => 'string',
@@ -169,6 +172,7 @@ class AdSetFields extends AbstractEnum {
       'is_dynamic_creative' => 'bool',
       'is_incremental_attribution_enabled' => 'bool',
       'is_organic_ad_joint_optimized' => 'bool',
+      'is_sequenced_conversion_creation' => 'bool',
       'issues_info' => 'list<AdCampaignIssuesInfo>',
       'learning_stage_info' => 'AdCampaignLearningStageInfo',
       'lifetime_budget' => 'string',

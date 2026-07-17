@@ -18,12 +18,10 @@ use FacebookAds\Enum\AbstractEnum;
  * on github and we'll fix in our codegen framework. We'll not be able to accept
  * pull request for this class.
  *
- * @method static ThirdPartyPartnerViewabilityRequestPlatformValues getInstance()
+ * @method static WhatsAppBusinessAccountWhatsappManagerMarketingMessagesMaxPriceEnrollStatusValues getInstance()
  */
-class ThirdPartyPartnerViewabilityRequestPlatformValues extends AbstractEnum {
+class WhatsAppBusinessAccountWhatsappManagerMarketingMessagesMaxPriceEnrollStatusValues extends AbstractEnum {
 
-  const AUDIENCE_NETWORK = 'AUDIENCE_NETWORK';
-  const FACEBOOK = 'FACEBOOK';
-  const INSTAGRAM = 'INSTAGRAM';
-  const THREADS = 'THREADS';
+  const OPT_IN = 'OPT_IN';
+  const OPT_OUT = 'OPT_OUT';
 }

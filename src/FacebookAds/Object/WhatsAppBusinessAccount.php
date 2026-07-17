@@ -24,6 +24,7 @@ use FacebookAds\Object\Values\WhatsAppBusinessAccountSubCategoryValues;
 use FacebookAds\Object\Values\WhatsAppBusinessAccountTasksValues;
 use FacebookAds\Object\Values\WhatsAppBusinessAccountTypeValues;
 use FacebookAds\Object\Values\WhatsAppBusinessAccountWhatsappBusinessManagerMessagingLimitValues;
+use FacebookAds\Object\Values\WhatsAppBusinessAccountWhatsappManagerMarketingMessagesMaxPriceEnrollStatusValues;
 
 /**
  * This class is auto-generated.
@@ -47,6 +48,7 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
     $ref_enums = array();
     $ref_enums['BusinessVerificationStatus'] = WhatsAppBusinessAccountBusinessVerificationStatusValues::getInstance()->getValues();
     $ref_enums['WhatsappBusinessManagerMessagingLimit'] = WhatsAppBusinessAccountWhatsappBusinessManagerMessagingLimitValues::getInstance()->getValues();
+    $ref_enums['WhatsappManagerMarketingMessagesMaxPriceEnrollStatus'] = WhatsAppBusinessAccountWhatsappManagerMarketingMessagesMaxPriceEnrollStatusValues::getInstance()->getValues();
     $ref_enums['Tasks'] = WhatsAppBusinessAccountTasksValues::getInstance()->getValues();
     $ref_enums['Type'] = WhatsAppBusinessAccountTypeValues::getInstance()->getValues();
     $ref_enums['Category'] = WhatsAppBusinessAccountCategoryValues::getInstance()->getValues();
@@ -709,6 +711,7 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
       'is_primary_device_delivery_only' => 'bool',
       'language' => 'string',
       'library_template_body_inputs' => 'map',
+      'library_template_body_param_inputs' => 'list<map>',
       'library_template_button_inputs' => 'list<map>',
       'library_template_name' => 'string',
       'message_send_ttl_seconds' => 'unsigned int',
@@ -1484,8 +1487,10 @@ class WhatsAppBusinessAccount extends AbstractCrudObject {
       'disable_marketing_messages_on_cloud_api' => 'bool',
       'is_enabled_for_insights' => 'bool',
       'template_auto_archival_enabled' => 'bool',
+      'whatsapp_manager_marketing_messages_max_price_enroll_status' => 'whatsapp_manager_marketing_messages_max_price_enroll_status_enum',
     );
     $enums = array(
+      'whatsapp_manager_marketing_messages_max_price_enroll_status_enum' => WhatsAppBusinessAccountWhatsappManagerMarketingMessagesMaxPriceEnrollStatusValues::getInstance()->getValues(),
     );
 
     $request = new ApiRequest(

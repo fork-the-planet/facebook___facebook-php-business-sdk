@@ -13,7 +13,7 @@ use FacebookAds\ApiRequest;
 use FacebookAds\Cursor;
 use FacebookAds\Http\RequestInterface;
 use FacebookAds\TypeChecker;
-use FacebookAds\Object\Fields\IGShoppingReviewStatusFields;
+use FacebookAds\Object\Fields\AdAccountFeaturePreferencesPostFields;
 
 /**
  * This class is auto-generated.
@@ -24,13 +24,13 @@ use FacebookAds\Object\Fields\IGShoppingReviewStatusFields;
  *
  */
 
-class IGShoppingReviewStatus extends AbstractObject {
+class AdAccountFeaturePreferencesPost extends AbstractCrudObject {
 
   /**
-   * @return IGShoppingReviewStatusFields
+   * @return AdAccountFeaturePreferencesPostFields
    */
   public static function getFieldsEnum() {
-    return IGShoppingReviewStatusFields::getInstance();
+    return AdAccountFeaturePreferencesPostFields::getInstance();
   }
 
   protected static function getReferencedEnums() {

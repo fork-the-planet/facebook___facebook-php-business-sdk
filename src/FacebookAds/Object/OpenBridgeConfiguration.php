@@ -105,6 +105,7 @@ class OpenBridgeConfiguration extends AbstractCrudObject {
 
     $param_types = array(
       'active' => 'bool',
+      'associated_sgw_data_source_id' => 'unsigned int',
       'blocked_event_types' => 'list<string>',
       'blocked_websites' => 'list<string>',
       'capi_publishing_state' => 'capi_publishing_state_enum',

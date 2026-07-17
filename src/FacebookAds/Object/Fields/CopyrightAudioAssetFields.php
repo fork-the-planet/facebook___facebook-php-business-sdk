@@ -24,10 +24,12 @@ class CopyrightAudioAssetFields extends AbstractEnum {
 
   const AUDIO_AVAILABILITY_STATUS = 'audio_availability_status';
   const AUDIO_LIBRARY_POLICY = 'audio_library_policy';
+  const CANONICAL_REFERENCE_FILE = 'canonical_reference_file';
   const CREATION_TIME = 'creation_time';
   const ID = 'id';
   const REFERENCE_FILE_ISRCS = 'reference_file_isrcs';
   const REFERENCE_FILES = 'reference_files';
+  const REPRESENTATIVE_REFERENCE_FILE = 'representative_reference_file';
   const TITLE = 'title';
   const UPDATE_TIME = 'update_time';
 
@@ -35,10 +37,12 @@ class CopyrightAudioAssetFields extends AbstractEnum {
     return array(
       'audio_availability_status' => 'string',
       'audio_library_policy' => 'list<map<string, list<map<string, Object>>>>',
+      'canonical_reference_file' => 'AudioAsset',
       'creation_time' => 'datetime',
       'id' => 'string',
       'reference_file_isrcs' => 'list<string>',
       'reference_files' => 'list<Object>',
+      'representative_reference_file' => 'AudioAsset',
       'title' => 'string',
       'update_time' => 'datetime',
     );

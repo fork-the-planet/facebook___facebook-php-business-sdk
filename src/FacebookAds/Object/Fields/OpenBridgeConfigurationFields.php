@@ -23,6 +23,7 @@ use FacebookAds\Enum\AbstractEnum;
 class OpenBridgeConfigurationFields extends AbstractEnum {
 
   const ACTIVE = 'active';
+  const ASSOCIATED_SGW_DATA_SOURCE_ID = 'associated_sgw_data_source_id';
   const BLOCKED_EVENT_TYPES = 'blocked_event_types';
   const BLOCKED_WEBSITES = 'blocked_websites';
   const BROWSER_AGENT = 'browser_agent';
@@ -41,6 +42,7 @@ class OpenBridgeConfigurationFields extends AbstractEnum {
   const INSTANCE_VERSION = 'instance_version';
   const IS_SGW_INSTANCE = 'is_sgw_instance';
   const IS_SGW_PIXEL_FROM_META_PIXEL = 'is_sgw_pixel_from_meta_pixel';
+  const MPC_FALLBACK_DOMAIN = 'mpc_fallback_domain';
   const PARTNER_NAME = 'partner_name';
   const PIXEL_ID = 'pixel_id';
   const SGW_ACCOUNT_ID = 'sgw_account_id';
@@ -50,6 +52,7 @@ class OpenBridgeConfigurationFields extends AbstractEnum {
   public function getFieldTypes() {
     return array(
       'active' => 'bool',
+      'associated_sgw_data_source_id' => 'string',
       'blocked_event_types' => 'list<string>',
       'blocked_websites' => 'list<string>',
       'browser_agent' => 'list<string>',
@@ -68,6 +71,7 @@ class OpenBridgeConfigurationFields extends AbstractEnum {
       'instance_version' => 'string',
       'is_sgw_instance' => 'bool',
       'is_sgw_pixel_from_meta_pixel' => 'bool',
+      'mpc_fallback_domain' => 'string',
       'partner_name' => 'string',
       'pixel_id' => 'string',
       'sgw_account_id' => 'string',

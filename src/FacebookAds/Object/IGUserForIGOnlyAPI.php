@@ -217,6 +217,7 @@ class IGUserForIGOnlyAPI extends AbstractCrudObject {
       'collaborators' => 'list<string>',
       'cover_url' => 'string',
       'image_url' => 'string',
+      'is_ai_generated' => 'bool',
       'is_carousel_item' => 'bool',
       'is_paid_partnership' => 'bool',
       'location_id' => 'string',
@@ -454,6 +455,56 @@ class IGUserForIGOnlyAPI extends AbstractCrudObject {
     return $pending ? $request : $request->execute();
   }
 
+  public function createPassThreadControl(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'metadata' => 'string',
+      'recipient' => 'Object',
+      'target_app_id' => 'string',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_POST,
+      '/passthreadcontrol',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
+  public function createReleaseThreadControl(array $fields = array(), array $params = array(), $pending = false) {
+    $this->assureId();
+
+    $param_types = array(
+      'recipient' => 'Object',
+    );
+    $enums = array(
+    );
+
+    $request = new ApiRequest(
+      $this->api,
+      $this->data['id'],
+      RequestInterface::METHOD_POST,
+      '/releasethreadcontrol',
+      new AbstractCrudObject(),
+      'EDGE',
+      array(),
+      new TypeChecker($param_types, $enums)
+    );
+    $request->addParams($params);
+    $request->addFields($fields);
+    return $pending ? $request : $request->execute();
+  }
+
   public function getStories(array $fields = array(), array $params = array(), $pending = false) {
     $this->assureId();
 
@@ -576,6 +627,9 @@ class IGUserForIGOnlyAPI extends AbstractCrudObject {
     $this->assureId();
 
     $param_types = array(
+      'media_type' => 'string',
+      'posted_after' => 'string',
+      'posted_before' => 'string',
     );
     $enums = array(
     );

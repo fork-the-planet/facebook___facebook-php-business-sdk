@@ -694,6 +694,7 @@ class AdSet extends AbstractArchivableCrudObject
 
     $param_types = array(
       'account_id' => 'string',
+      'ad_set_goal' => 'map',
       'adlabels' => 'list<Object>',
       'adset_schedule' => 'list<Object>',
       'attribution_spec' => 'list<map>',
@@ -703,6 +704,7 @@ class AdSet extends AbstractArchivableCrudObject
       'bid_constraints' => 'map<string, Object>',
       'bid_strategy' => 'bid_strategy_enum',
       'billing_event' => 'billing_event_enum',
+      'brand_safety_config' => 'map',
       'budget_schedule_specs' => 'list<Object>',
       'campaign_attribution' => 'Object',
       'campaign_spec' => 'Object',
@@ -727,6 +729,7 @@ class AdSet extends AbstractArchivableCrudObject
       'is_dc_follow_optimized' => 'bool',
       'is_incremental_attribution_enabled' => 'bool',
       'is_sac_cfca_terms_certified' => 'bool',
+      'is_sequenced_conversion_creation' => 'bool',
       'lifetime_budget' => 'unsigned int',
       'lifetime_imps' => 'unsigned int',
       'lifetime_min_spend_target' => 'unsigned int',

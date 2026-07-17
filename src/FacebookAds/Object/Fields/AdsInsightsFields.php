@@ -120,6 +120,8 @@ class AdsInsightsFields extends AbstractEnum {
   const CREATIVE_DIVERSITY_DATA = 'creative_diversity_data';
   const CREATIVE_DIVERSITY_LABEL = 'creative_diversity_label';
   const CREATIVE_DIVERSITY_SCORE = 'creative_diversity_score';
+  const CREATIVE_FATIGUE_SUMMARY = 'creative_fatigue_summary';
+  const CREATIVE_FATIGUED_ADS = 'creative_fatigued_ads';
   const CREATIVE_MEDIA_TYPE = 'creative_media_type';
   const CTR = 'ctr';
   const DATE_START = 'date_start';
@@ -200,7 +202,6 @@ class AdsInsightsFields extends AbstractEnum {
   const RESULT_RATE = 'result_rate';
   const RESULT_VALUES_PERFORMANCE_INDICATOR = 'result_values_performance_indicator';
   const RESULTS = 'results';
-  const SHOP_CLICKS = 'shop_clicks';
   const SHOPS_ASSISTED_PURCHASES = 'shops_assisted_purchases';
   const SOCIAL_SPEND = 'social_spend';
   const SPEND = 'spend';
@@ -342,6 +343,8 @@ class AdsInsightsFields extends AbstractEnum {
       'creative_diversity_data' => 'list<Object>',
       'creative_diversity_label' => 'string',
       'creative_diversity_score' => 'string',
+      'creative_fatigue_summary' => 'list<Object>',
+      'creative_fatigued_ads' => 'list<Object>',
       'creative_media_type' => 'string',
       'ctr' => 'string',
       'date_start' => 'string',
@@ -422,7 +425,6 @@ class AdsInsightsFields extends AbstractEnum {
       'result_rate' => 'list<Object>',
       'result_values_performance_indicator' => 'string',
       'results' => 'list<Object>',
-      'shop_clicks' => 'string',
       'shops_assisted_purchases' => 'string',
       'social_spend' => 'string',
       'spend' => 'string',
